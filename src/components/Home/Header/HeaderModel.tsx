@@ -12,16 +12,18 @@ export const HeaderModel = () => {
     three.build('canvasHeader')
     
 
-    const { cube } = astronaut.addOnScene(three.scene)
+    const astronautFbx = astronaut.load(three.scene)
 
 
     const animate = () => {
       requestAnimationFrame(animate);
 
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
 
       three.renderer.render(three.scene, three.camera);
+
+      if(astronaut.mixer){
+        astronaut.mixer.update(three.clock.getDelta())
+      }
     };
     animate();
     // onCleanup(() => {

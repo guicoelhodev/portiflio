@@ -10,16 +10,23 @@ export class Astronaut {
 
     fbxLoader.setPath('threeModels/fbx/astronaut/');
 
-    const fbx = await fbxLoader.loadAsync('astronaut.fbx');
+    
+    const fbx = await fbxLoader.loadAsync('astronaut.fbx').catch(() => {
+  
+      throw new Error('astronaut not founded');
+    });
 
+      
     fbx.scale.setScalar(1);
 
     fbx.scale.setScalar(0.3)
+
     fbx.traverse((c) => {
       c.castShadow = true
     })
 
-    // fbx.position.y = -3.4
+     fbx.position.z = 1.4
+     fbx.position.y = -.28
     // fbx.rotation.y = 3
 
     scene.add(fbx);
