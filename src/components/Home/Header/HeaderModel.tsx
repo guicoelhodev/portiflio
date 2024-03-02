@@ -12,7 +12,7 @@ export const HeaderModel = () => {
     three.build('canvasHeader')
     
 
-    const astronautFbx = astronaut.load(three.scene)
+    const astronautFbx = astronaut.load(three.scene, three.camera, three.renderer)
 
 
     const animate = () => {

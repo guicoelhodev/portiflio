@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export class ThreeScene {
 
@@ -12,8 +11,9 @@ export class ThreeScene {
   lightUp = new THREE.DirectionalLight(0xffffff, 1)
 
   private addLights(){
-    this.light.position.set(1, 0, 1)
-    this.lightUp.position.set(0, 1, 0)
+    // this.light.position.set(1, 0, 1)
+    // this.lightUp.position.set(0, 1, 0)
+    this.lightUp.position.set(1, 1, 1)
   }
 
   private renderScene(){
@@ -29,6 +29,5 @@ export class ThreeScene {
     container.appendChild(this.renderer.domElement);
 
     this.camera.position.z = 2;
-    new OrbitControls(this.camera, this.renderer.domElement)
   }
 }
