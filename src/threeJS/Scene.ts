@@ -1,33 +1,19 @@
 import * as THREE from 'three'
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export class ThreeScene {
 
-  build(htmlTagId: string) {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  renderer = new THREE.WebGLRenderer();
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+  build(htmlTagId: string) {
+    this.renderer.setSize(320, 320);
+    this.renderer.setClearColor(0x262626)
 
     const container = document.getElementById(htmlTagId)
-    container.appendChild(renderer.domElement); // Mount the Three.js canvas to our div
+    container.appendChild(this.renderer.domElement);
 
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    this.camera.position.z = 2;
 
-    camera.position.z = 5;
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-
-      renderer.render(scene, camera);
-    };
-    animate();
   }
 }

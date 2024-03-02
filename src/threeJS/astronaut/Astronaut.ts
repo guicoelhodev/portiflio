@@ -1,13 +1,30 @@
 import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
 export class Astronaut {
-  
-  private geometry = new THREE.BoxGeometry(1, 1, 1);
-  private material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+  public mixer: THREE.AnimationMixer
 
-  private cube = new THREE.Mesh(this.geometry, this.material);
-  
-  addOnScene(scene: THREE.Scene ){
-    scene.add(this.cube)
+  async load(scene: THREE.Scene){
+
+    const fbxLoader = new FBXLoader();
+
+    fbxLoader.setPath('threeModels/fbx/astronaut/');
+
+    const fbx = await fbxLoader.loadAsync('astronaut.fbx');
+
+    fbx.scale.setScalar(1);
+
+    fbx.scale.setScalar(0.3)
+    fbx.traverse((c) => {
+      c.castShadow = true
+    })
+
+    // fbx.position.y = -3.4
+    // fbx.rotation.y = 3
+
+    scene.add(fbx);
+    this.mixer = new THREE.AnimationMixer(fbx)
+    
+    return fbx
   }
 }
