@@ -22,6 +22,7 @@
     "@solidjs/router": "^0.8.2",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.11",
+    "tailwind-merge": "^2.2.1",
     "three": "^0.162.0"
   }
 }
