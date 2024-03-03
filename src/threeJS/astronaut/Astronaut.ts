@@ -22,17 +22,25 @@ export class Astronaut {
       throw new Error('astronaut not founded');
     });
 
+    fbx.scale.setScalar(1)
+    // fbx.scale.setScalar(1);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); 
+    scene.add(ambientLight);
 
-    fbx.scale.setScalar(1);
-
-    fbx.scale.setScalar(0.3)
+    // Adiciona luz direcional
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); 
+    directionalLight.position.set(0, 2, 2); 
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
+    // fbx.scale.setScalar(0.3)
 
     fbx.traverse((c) => {
       c.castShadow = true
     })
 
-    fbx.position.z = 2.8
-    fbx.position.y = -.28
+    
+    fbx.position.z = 6.8
+    // fbx.position.y = -.28
     // fbx.rotation.y = 3
 
     scene.add(fbx);
