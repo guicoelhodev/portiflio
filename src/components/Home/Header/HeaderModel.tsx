@@ -1,32 +1,32 @@
 import { For, onCleanup, onMount } from "solid-js";
 import { ThreeScene } from "../../../threeJS/Scene"
-import { Astronaut } from "../../../threeJS/astronaut/Astronaut";
 
 import { Bs1CircleFill } from 'solid-icons/bs'
 import { Bs2CircleFill } from 'solid-icons/bs'
 import { Bs3CircleFill } from 'solid-icons/bs'
+import { Character } from "../../../threeJS/character/Character";
 
 export const HeaderModel = () => {
 
   const three = new ThreeScene();
-  const astronaut = new Astronaut();
+  const character = new Character();
 
   onMount(async () => {
 
     three.build('canvasHeader')
 
-    const astronautFbx = await astronaut.load(three.scene, three.camera, three.renderer)
+    const characterFbx = await character.load(three.scene)
 
     const animate = () => {
       requestAnimationFrame(animate);
 
-      astronaut.fixControlOnAstronaut(three.controls, astronautFbx.position)
+      character.fixControlOnAstronaut(three.controls,  characterFbx.position)
       three.controls.update();
       
       three.renderer.render(three.scene, three.camera);
 
-      if (astronaut.mixer) {
-        astronaut.mixer.update(three.clock.getDelta())
+      if (character.mixer) {
+        character.mixer.update(three.clock.getDelta())
       }
 
     };

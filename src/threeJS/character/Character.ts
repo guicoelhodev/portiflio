@@ -2,17 +2,17 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
-export class Astronaut {
+export class Character {
   public mixer: THREE.AnimationMixer
 
-  async load(scene: THREE.Scene, camera: THREE.Camera, renderer: THREE.Renderer) {
+  async load(scene: THREE.Scene) {
 
     const fbxLoader = new FBXLoader();
 
-    fbxLoader.setPath('threeModels/fbx/astronaut/');
+    fbxLoader.setPath('threeModels/fbx/fallGuys/');
 
 
-    const fbx = await fbxLoader.loadAsync('astronaut.fbx').catch(() => {
+    const fbx = await fbxLoader.loadAsync('fallguy.fbx').catch(() => {
       throw new Error('astronaut not founded');
     });
 
