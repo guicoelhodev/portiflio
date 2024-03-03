@@ -33,8 +33,9 @@ export class Character {
       return null;
     }
 
-    fbxAnimation.position.setY(-140)
-    fbxAnimation.scale.set(3.5, 2, 3);
+    fbxAnimation.position.setY(-280)
+    fbxAnimation.position.setZ(-160)
+    fbxAnimation.scale.setScalar(3);
 
     if (!this.mixer) {
       this.mixer = new THREE.AnimationMixer(fbxAnimation);
