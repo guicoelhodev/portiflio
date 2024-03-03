@@ -17,7 +17,12 @@ export const AboutMe = () => {
             In my free time, I enjoy using other tools and exploring the vast world of web development, including animations, 3D motions, and other frameworks like Vue.
                         </p>
 
-            <button class='w-full p-4 mt-16 border-2 border-red-600 text-red-600 rounded-md text-lg'>Curriculum Vitae ( PDF )</button>
+          <a 
+            class='w-full p-4 mt-16 border-2 border-red-600 text-red-600 rounded-md text-lg text-center'
+            href='/curriculum/curriculum_guilherme.pdf'
+            target='_blank'
+          >
+            Curriculum Vitae ( PDF )</a>
         </li>
 
         <li class='flex items-center justify-center p-8'>
