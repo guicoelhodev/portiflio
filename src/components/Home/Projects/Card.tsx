@@ -1,3 +1,4 @@
+import { BiRegularWorld } from 'solid-icons/bi';
 import { Show, createEffect, createSignal } from 'solid-js';
 
 export const Card = () => {
@@ -37,6 +38,7 @@ export const Card = () => {
         <div
           style={{
             transform: transform(),
+            // transform: "translate(-50%, -20%) rotateX(60deg) scale(0.8)"
           }}
           class="absolute left-1/2 top-1/2 bg-white  flex justify-start items-start  rounded-md  shadow-[0_8px_16px_rgb(0_0_0/0.4)] border border-white/[0.1] transition duration-700 overflow-hidden"
         >
@@ -48,9 +50,14 @@ export const Card = () => {
       </section>
 
       <Show when={isHovered()}>
-        <article class='h-3/4 flex flex-col items-center animate-cardFadeIn'>
-          <div class='w-60 bg-red-100 aspect-video rounded-lg'>s</div>
-          <span class='w-[2px] h-40 bg-neutral-200 z-50'></span>
+        <article class='h-3/4 flex flex-col items-center justify-end animate-cardFadeIn'>
+          <div class='w-60 bg-red-100 rounded-lg flex items-center'>
+            <aside class='bg-neutral-900 flex items-center gap-2 overflow-hidden border-2 border-neutral-200 px-4 py-[4px] rounded-full text-neutral-400'>
+              <BiRegularWorld />
+              <p class='truncate text-ellipsis'>https://google.com/foolbar</p>
+            </aside>
+          </div>
+          <span class='w-[2px] h-20 bg-neutral-200 z-50'></span>
         </article>
       </Show>
     </div>
