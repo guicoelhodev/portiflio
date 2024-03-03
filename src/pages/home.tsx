@@ -7,6 +7,7 @@ import { SiGamedeveloper } from 'solid-icons/si'
 import { FaSolidChevronDown } from 'solid-icons/fa'
 
 import Coelho from '../assets/coelho_transparent.png'
+import { Footer } from '../components/Home/Footer';
 
 export default function Home() {
 
@@ -36,8 +37,10 @@ export default function Home() {
           <img src={Coelho} class='absolute h-[110%] right-0 object-contain'/>
         </div >
       </section>
+
       <Projects />
       <AboutMe />
+      <Footer />
     </section>
   );
 }

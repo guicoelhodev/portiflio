@@ -19,10 +19,6 @@ export const Card = (props: TProject) => {
     setIsHovered(false)
   };
 
-  createEffect(() => {
-    console.log(isHovered())
-  })
-
   return (
     <a
       href={props.link}
