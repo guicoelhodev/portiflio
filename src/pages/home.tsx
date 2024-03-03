@@ -1,30 +1,46 @@
-import { createSignal } from 'solid-js';
+import { AboutMe } from '../components/Home/AboutMe';
+import { CarouselTools } from '../components/Home/CarouselTools';
+import { Header } from '../components/Home/Header';
+import { Projects } from '../components/Home/Projects';
+
+import { SiGamedeveloper } from 'solid-icons/si'
+import { FaSolidChevronDown } from 'solid-icons/fa'
+
+import Coelho from '../assets/coelho_transparent.png'
+import { Footer } from '../components/Home/Footer';
 
 export default function Home() {
-  const [count, setCount] = createSignal(0);
 
   return (
-    <section class="bg-gray-100 text-gray-700 p-8">
-      <h1 class="text-2xl font-bold">Home</h1>
-      <p class="mt-8">This is the home page.</p>
+    <section class='bg-neutral-900 flex flex-col'>
 
-      <div class="flex items-center space-x-2">
-        <button
-          class="border rounded-lg px-2 border-gray-900"
-          onClick={() => setCount(count() - 1)}
-        >
-          -
-        </button>
+      <Header />
+      <CarouselTools />
 
-        <output class="p-10px">Count: {count()}</output>
+      <section class='bg-white sm:py-24'>
 
-        <button
-          class="border rounded-lg px-2 border-gray-900"
-          onClick={() => setCount(count() + 1)}
-        >
-          +
-        </button>
-      </div>
+        <div class='relative h-[520px] overflow-hidden flex items-center'>
+
+          <section class='flex flex-col w-full gap-2 p-4 items-center pt-16 sm:p-8 sm:w-auto sm:items-start sm:gap-4'>
+            <h1 class='text-4xl font-semibold text-red-400 sm:text-6xl'>Guilherme Coelho</h1>
+
+            <article class='flex gap-2 items-center text-blue-500'>
+              <h3 class='text-2xl sm:text-3xl '>I'm front end developer</h3>
+              <SiGamedeveloper size={32}/>
+            </article>
+
+            <article class='pt-8 flex items-center gap-4 text-neutral-500'>
+              <p class='text-lg'>Scroll down to see my best projects</p>
+              <FaSolidChevronDown size={24} class='animate-bounce'/>
+            </article>
+          </section>
+          <img src={Coelho} class='absolute h-[110%] right-0 object-contain'/>
+        </div >
+      </section>
+
+      <Projects />
+      <AboutMe />
+      <Footer />
     </section>
   );
 }

@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/three": "^0.162.0",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.33",
     "solid-devtools": "^0.29.2",
@@ -19,6 +20,9 @@
   },
   "dependencies": {
     "@solidjs/router": "^0.8.2",
-    "solid-js": "^1.8.11"
+    "solid-icons": "^1.1.0",
+    "solid-js": "^1.8.11",
+    "tailwind-merge": "^2.2.1",
+    "three": "^0.162.0"
   }
 }
