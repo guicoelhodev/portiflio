@@ -4,12 +4,9 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
 export class Character {
   mixer: THREE.AnimationMixer
-  characterAnimations: THREE.Group[];
-  
-  fixControlOnAstronaut(controls: OrbitControls, position: THREE.Vector3){
-     controls.target.set(position.x, position.y, position.z);
-     controls.update()
-  }
+  characterFbx: THREE.Group<THREE.Object3DEventMap>
+
+  private characterAnimations: THREE.Group<THREE.Object3DEventMap>[];
 
   async load(scene: THREE.Scene) {
 
@@ -27,30 +24,28 @@ export class Character {
 
     // Adiciona luz direcional
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0, 2, 2);
+    directionalLight.position.set(5, 2, 2);
     directionalLight.castShadow = true;
 
     scene.add(directionalLight);
 
-  
+
     fbx.traverse((c) => {
       c.castShadow = true
     })
 
-    scene.add(fbx);
+    await this.loadAllAnimations().catch(() => console.error('Failed to load animations'))
+    const fbxAnimation = this.setCharacterAnimation(1, scene)
+    
+    fbxAnimation.position.setY(-180)
+    fbxAnimation.scale.setScalar(2.3);
 
-    this.mixer = new THREE.AnimationMixer(fbx)
-
-    fbx.position.setY(-160);
-    fbx.rotateX(-0.3)
-    fbx.scale.setScalar(1.3)
-
-    return fbx
+    this.characterFbx = fbxAnimation
   };
-  
-  async loadAllAnimations(){
+
+  private async loadAllAnimations() {
     const animLoader = new FBXLoader();
-    animLoader.setPath('threeModels/fbx/fallGuys');
+    animLoader.setPath('threeModels/fbx/fallGuys/');
 
     const relativePaths = [
       'dancing_silly.fbx',
@@ -58,14 +53,22 @@ export class Character {
       'dancing_upwork.fbx',
     ];
 
-    
-    for await (let anim of relativePaths) {
-      let animFbx = await animLoader.loadAsync(anim)
+    const asyncLoadsFbx = relativePaths.map(path => animLoader.loadAsync(path));
 
-      let nameWithoutExtension = anim.split('.')[0]
-      animFbx = { ...animFbx, name: nameWithoutExtension } as THREE.Group
+    this.characterAnimations = await Promise.all(asyncLoadsFbx)
+  }
 
-      this.characterAnimations.push(animFbx)
-    }
+  setCharacterAnimation(index: number, scene: THREE.Scene) {
+    const fbxAnimation = this.characterAnimations[index];
+
+    if (!fbxAnimation) throw new Error('Fbx animation not found');
+
+    this.mixer = new THREE.AnimationMixer(fbxAnimation);
+    const action = this.mixer.clipAction(fbxAnimation.animations[0]);
+
+    action.play()
+    scene.add(fbxAnimation)
+
+    return fbxAnimation
   }
 }

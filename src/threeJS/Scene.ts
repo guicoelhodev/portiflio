@@ -9,8 +9,7 @@ export class ThreeScene {
   clock = new THREE.Clock()
   controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-  light = new THREE.DirectionalLight(0xffffff, 1)
-  lightUp = new THREE.DirectionalLight(0xffffff, 1)
+  private lightUp = new THREE.DirectionalLight(0xffffff, 1)
 
   private addLights(){
     this.lightUp.position.set(1, 1, 1)
@@ -31,8 +30,6 @@ export class ThreeScene {
     container.appendChild(this.renderer.domElement);
 
     this.camera.position.set( 0, 200, 400 );
-
-    // this.camera.
     this.controls.update();
 
   }

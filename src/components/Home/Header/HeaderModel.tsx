@@ -14,15 +14,13 @@ export const HeaderModel = () => {
   onMount(async () => {
 
     three.build('canvasHeader')
-
-    const characterFbx = await character.load(three.scene)
+    await character.load(three.scene)
 
     const animate = () => {
       requestAnimationFrame(animate);
 
-      character.fixControlOnAstronaut(three.controls,  characterFbx.position)
       three.controls.update();
-      
+
       three.renderer.render(three.scene, three.camera);
 
       if (character.mixer) {
@@ -40,15 +38,15 @@ export const HeaderModel = () => {
   const dancingButtons = [
     {
       icon: Bs1CircleFill,
-      onClick: () => {}
+      onClick: () => { }
     },
     {
       icon: Bs2CircleFill,
-      onClick: () => {}
+      onClick: () => { }
     },
     {
       icon: Bs3CircleFill,
-      onClick: () => {}
+      onClick: () => { }
     },
   ];
 
@@ -61,7 +59,7 @@ export const HeaderModel = () => {
           <For each={dancingButtons}>
             {(button) => (
               <button>
-                <button.icon size={30}/>
+                <button.icon size={30} />
               </button>
             )}
           </For>
