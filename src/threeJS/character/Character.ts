@@ -6,42 +6,8 @@ export class Character {
   mixer: THREE.AnimationMixer
   characterFbx: THREE.Group<THREE.Object3DEventMap>
 
+  private currentAction: THREE.AnimationAction
   private characterAnimations: THREE.Group<THREE.Object3DEventMap>[];
-
-  async load(scene: THREE.Scene) {
-
-    const fbxLoader = new FBXLoader();
-
-    fbxLoader.setPath('threeModels/fbx/fallGuys/');
-
-
-    const fbx = await fbxLoader.loadAsync('fallguy.fbx').catch(() => {
-      throw new Error('astronaut not founded');
-    });
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    // Adiciona luz direcional
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 2, 2);
-    directionalLight.castShadow = true;
-
-    scene.add(directionalLight);
-
-
-    fbx.traverse((c) => {
-      c.castShadow = true
-    })
-
-    await this.loadAllAnimations().catch(() => console.error('Failed to load animations'))
-    const fbxAnimation = this.setCharacterAnimation(1, scene)
-    
-    fbxAnimation.position.setY(-180)
-    fbxAnimation.scale.setScalar(2.3);
-
-    this.characterFbx = fbxAnimation
-  };
 
   private async loadAllAnimations() {
     const animLoader = new FBXLoader();
@@ -59,16 +25,72 @@ export class Character {
   }
 
   setCharacterAnimation(index: number, scene: THREE.Scene) {
-    const fbxAnimation = this.characterAnimations[index];
 
-    if (!fbxAnimation) throw new Error('Fbx animation not found');
+    const fbxAnimation = this.characterAnimations?.[index];
 
-    this.mixer = new THREE.AnimationMixer(fbxAnimation);
-    const action = this.mixer.clipAction(fbxAnimation.animations[0]);
+    if (!fbxAnimation) {
+      console.error('Fbx animation not found');
+      return null;
+    }
 
-    action.play()
-    scene.add(fbxAnimation)
+    fbxAnimation.position.setY(-140)
+    fbxAnimation.scale.set(3.5, 2, 3);
+
+    if (!this.mixer) {
+      this.mixer = new THREE.AnimationMixer(fbxAnimation);
+    }
+
+    const newAction = this.mixer.clipAction(fbxAnimation.animations[0]);
+
+    if (this.currentAction && this.currentAction !== newAction) {
+      this.currentAction.fadeOut(0.5)
+    }
+
+    if (this.currentAction) {
+
+      newAction.reset()
+      newAction.fadeIn(0.5) // switch between animations smoothly
+    } else {
+      scene.add(fbxAnimation)
+    }
+
+    newAction.play()
+
+    this.currentAction = newAction
+
 
     return fbxAnimation
   }
+
+  async load(scene: THREE.Scene ) {
+
+    const fbxLoader = new FBXLoader();
+
+    fbxLoader.setPath('threeModels/fbx/fallGuys/');
+
+
+    const fbx = await fbxLoader.loadAsync('fallguy.fbx').catch(() => {
+      throw new Error('astronaut not founded');
+    });
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    // Add directional light 
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 2, 2);
+    directionalLight.castShadow = true;
+
+    scene.add(directionalLight);
+
+
+    fbx.traverse((c) => {
+      c.castShadow = true
+    })
+
+    await this.loadAllAnimations().catch(() => console.error('Failed to load animations'))
+    const fbxAnimation = this.setCharacterAnimation(0, scene);
+    this.characterFbx = fbxAnimation
+
+  };
 }

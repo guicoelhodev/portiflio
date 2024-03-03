@@ -1,4 +1,4 @@
-import { For, onCleanup, onMount } from "solid-js";
+import { For, createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import { ThreeScene } from "../../../threeJS/Scene"
 
 import { Bs1CircleFill } from 'solid-icons/bs'
@@ -11,10 +11,12 @@ export const HeaderModel = () => {
   const three = new ThreeScene();
   const character = new Character();
 
+  const [ indexDance, setIndexDance ] = createSignal(0);
+
   onMount(async () => {
 
     three.build('canvasHeader')
-    await character.load(three.scene)
+    await character.load(three.scene )
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -35,31 +37,20 @@ export const HeaderModel = () => {
     })
   });
 
-  const dancingButtons = [
-    {
-      icon: Bs1CircleFill,
-      onClick: () => { }
-    },
-    {
-      icon: Bs2CircleFill,
-      onClick: () => { }
-    },
-    {
-      icon: Bs3CircleFill,
-      onClick: () => { }
-    },
-  ];
+  createEffect(() => {
+    character.setCharacterAnimation(indexDance(), three.scene)
+  })
 
   return (
-    <article class='relative bg-neutral-800 rounded-lg aspect-squbre flex items-center justify-center p-4'>
+    <article class='relative bg-neutral-800 rounded-lg aspect-squbre flex items-center justify-center'>
       <div id='canvasHeader'></div>
 
       <article class='absolute bottom-0 right-0 bg-neutral-900 p-4 rounded-tl-lg flex gap-4'>
         {
-          <For each={dancingButtons}>
-            {(button) => (
-              <button>
-                <button.icon size={30} />
+          <For each={[0,1,2]}>
+            {(button, index) => (
+              <button class='bg-white text-neutral-900 aspect-square h-8' onClick={() => setIndexDance(index)}>
+                {button}
               </button>
             )}
           </For>
