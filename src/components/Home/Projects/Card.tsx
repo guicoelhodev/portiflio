@@ -1,7 +1,8 @@
 import { BiRegularWorld } from 'solid-icons/bi';
 import { Show, createEffect, createSignal } from 'solid-js';
+import { TProject } from '../../../data/projects';
 
-export const Card = () => {
+export const Card = (props: TProject) => {
 
   const [transform, setTransform] = createSignal(
     "translate(-50%,-50%) rotateX(0deg)"
@@ -24,7 +25,7 @@ export const Card = () => {
 
   return (
     <a
-      href='https://google.com'
+      href={props.link}
       target='_blank'
 
       class="relative z-50 py-16  cursor-pointer h-[400px]"
@@ -45,10 +46,10 @@ export const Card = () => {
           class="absolute left-1/2 top-1/2 bg-white  flex justify-start items-start  rounded-md  shadow-[0_8px_16px_rgb(0_0_0/0.4)] border border-white/[0.1] transition duration-700 overflow-hidden"
         >
           <article class="relative z-50 text-black flex gap-4 w-[340px] flex-col p-4 sm:w-[420px]" id='card-container'>
-            <h4 class='text-2xl text-blue-400'>React music</h4>
-            <p class='text-neutral-400'>Musical app using react and deezer API</p>
+            <h4 class='text-2xl text-blue-800'>{props.title}</h4>
+            <p class='text-neutral-400'>{props.description}</p>
 
-            <img class='rounded-md aspect-video' src='https://github.com/guicoelhodev/ReactMusic/blob/main/github/readme_bg.png?raw=true' />
+            <img class='rounded-md aspect-video object-cover' src={props.imgSrc} alt='Project image list' />
           </article>
         </div>
       </section>
@@ -59,7 +60,7 @@ export const Card = () => {
 
             <aside class='bg-neutral-900 flex items-center gap-2 overflow-hidden px-4 py-[4px] rounded-full text-neutral-400'>
               <BiRegularWorld />
-              <p class='truncate text-ellipsis'>https://google.com/foolbar</p>
+              <p class='truncate text-ellipsis'>{props.link}</p>
             </aside>
           </div>
           <span class='w-[2px] h-24 bg-neutral-200 z-50'></span>
