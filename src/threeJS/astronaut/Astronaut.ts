@@ -26,7 +26,7 @@ export class Astronaut {
 
     scene.add(directionalLight);
 
-    
+  
     fbx.traverse((c) => {
       c.castShadow = true
     })
@@ -34,12 +34,16 @@ export class Astronaut {
     scene.add(fbx);
 
     this.mixer = new THREE.AnimationMixer(fbx)
+
+    fbx.position.setY(-280);
+    fbx.rotateX(-0.3)
+    fbx.scale.setScalar(2)
+
     return fbx
   };
 
   fixControlOnAstronaut(controls: OrbitControls, position: THREE.Vector3){
-
-    controls.target.set(position.x, position.y + 0.5, position.z);
-    controls.update()
+     controls.target.set(position.x, position.y + 300, position.z - 1);
+     controls.update()
   }
 }
