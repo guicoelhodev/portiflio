@@ -53,7 +53,7 @@ export const HeaderModel = () => {
   ];
 
   return (
-    <article class='relative bg-neutral-800 rounded-lg aspect-squbre flex items-center justify-center p-8'>
+    <article class='relative bg-neutral-800 rounded-lg aspect-squbre flex items-center justify-center p-4'>
       <div id='canvasHeader'></div>
 
       <article class='absolute bottom-0 right-0 bg-neutral-900 p-4 rounded-tl-lg flex gap-4'>

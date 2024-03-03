@@ -3,7 +3,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
 export class Character {
-  public mixer: THREE.AnimationMixer
+  mixer: THREE.AnimationMixer
+  characterAnimations: THREE.Group[];
+  
+  fixControlOnAstronaut(controls: OrbitControls, position: THREE.Vector3){
+     controls.target.set(position.x, position.y, position.z);
+     controls.update()
+  }
 
   async load(scene: THREE.Scene) {
 
@@ -35,15 +41,31 @@ export class Character {
 
     this.mixer = new THREE.AnimationMixer(fbx)
 
-    fbx.position.setY(-280);
+    fbx.position.setY(-160);
     fbx.rotateX(-0.3)
-    fbx.scale.setScalar(2)
+    fbx.scale.setScalar(1.3)
 
     return fbx
   };
+  
+  async loadAllAnimations(){
+    const animLoader = new FBXLoader();
+    animLoader.setPath('threeModels/fbx/fallGuys');
 
-  fixControlOnAstronaut(controls: OrbitControls, position: THREE.Vector3){
-     controls.target.set(position.x, position.y + 300, position.z - 1);
-     controls.update()
+    const relativePaths = [
+      'dancing_silly.fbx',
+      'dancing_swing.fbx',
+      'dancing_upwork.fbx',
+    ];
+
+    
+    for await (let anim of relativePaths) {
+      let animFbx = await animLoader.loadAsync(anim)
+
+      let nameWithoutExtension = anim.split('.')[0]
+      animFbx = { ...animFbx, name: nameWithoutExtension } as THREE.Group
+
+      this.characterAnimations.push(animFbx)
+    }
   }
 }

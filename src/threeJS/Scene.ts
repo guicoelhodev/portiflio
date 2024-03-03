@@ -17,7 +17,7 @@ export class ThreeScene {
   }
 
   private renderScene(){
-    this.renderer.setSize(320, 320);
+    this.renderer.setSize(360, 360);
     this.renderer.setPixelRatio(1)
     this.renderer.setClearColor(0x262626)
   }
