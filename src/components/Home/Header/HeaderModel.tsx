@@ -27,6 +27,7 @@ export const HeaderModel = () => {
       }
 
     };
+
     animate();
 
     onCleanup(() => {
@@ -41,11 +42,11 @@ export const HeaderModel = () => {
   const buttonAnimation = (currBtn: number) => {
     const selectedBtn = currBtn === indexDance();
 
-    return selectedBtn ? 'animate-none' : 'animate-pulse' 
+    return selectedBtn ? 'animate-none' : 'animate-pulse'
   }
 
   return (
-    <article class='relative bg-neutral-800 rounded-lg aspect-squbre flex items-center justify-center radius-md p-2'>
+    <article class='relative bg-neutral-800 rounded-lg sm:aspect-square flex items-center justify-center radius-md p-2'>
       <div id='canvasHeader'></div>
 
       <article class='absolute bottom-0 right-0 bg-neutral-800 p-2 rounded-tl-lg flex gap-4'>

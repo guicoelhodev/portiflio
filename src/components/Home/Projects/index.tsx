@@ -9,7 +9,7 @@ export const Projects = () => {
         <h2 class='font-extrabold text-5xl text-blue-800'>Projects</h2>
       </article>
 
-      <ul class='w-full max-w-screen-lg p-4 grid grid-cols grid-cols-2 gap-2 '>
+      <ul class='w-full max-w-screen-lg p-4 grid lg:grid-cols-2 sm:gap-2 '>
         <For each={projects}>
           {(project) => <Card {...project} />}
         </For>

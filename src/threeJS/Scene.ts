@@ -11,11 +11,11 @@ export class ThreeScene {
 
   private lightUp = new THREE.DirectionalLight(0xffffff, 1)
 
-  private addLights(){
+  private addLights() {
     this.lightUp.position.set(1, 1, 1)
   }
 
-  private renderScene(){
+  private renderScene() {
     this.renderer.setSize(360, 360);
     this.renderer.setPixelRatio(1)
     this.renderer.setClearColor(0x262626)
@@ -25,12 +25,11 @@ export class ThreeScene {
 
     this.addLights()
     this.renderScene()
-    
+
     const container = document.getElementById(htmlTagId)
     container.appendChild(this.renderer.domElement);
 
-    this.camera.position.set( 0, 200, 400 );
+    this.camera.position.set(0, 200, 400);
     this.controls.update();
-
-  }
+    }
 }
