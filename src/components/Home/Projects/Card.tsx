@@ -1,5 +1,5 @@
 import { BiRegularWorld } from 'solid-icons/bi';
-import { Show, createEffect, createSignal } from 'solid-js';
+import { Show, createSignal } from 'solid-js';
 import { TProject } from '../../../data/projects';
 
 export const Card = (props: TProject) => {

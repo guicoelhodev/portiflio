@@ -33,9 +33,14 @@ export class Character {
       return null;
     }
 
+    if(window.innerWidth < 520) {
+      fbxAnimation.scale.set(2, 2.5, 3);
+    } else {
+      fbxAnimation.scale.setScalar(3);
+    };
+
     fbxAnimation.position.setY(-280)
     fbxAnimation.position.setZ(-160)
-    fbxAnimation.scale.setScalar(3);
 
     if (!this.mixer) {
       this.mixer = new THREE.AnimationMixer(fbxAnimation);

@@ -8,9 +8,9 @@ export const AboutMe = () => {
         <h2 class='font-extrabold text-5xl text-blue-800'>About me</h2>
       </article>
 
-      <ul class='grid grid-cols-2 max-w-screen-lg gap-4 pt-16'>
+      <ul class='flex flex-col max-w-screen-lg gap-4 pt-16 sm:grid sm:grid-cols-2 '>
         <li class='p-4 flex flex-col justify-center items-center'>
-          <p class='text-lg text-slate-500'>
+          <p class='text-lg text-slate-500 text-center sm:text-left'>
             I have been working as a front-end developer since 2021. Currently, I am a mid-level developer specialized in the React and Node ecosystem.
             <br /> <br />
 
@@ -30,7 +30,7 @@ export const AboutMe = () => {
           </li>
 
         <li class='col-span-2 py-16 mt-8'>
-          <p class='text-center text-lg text-slate-500'>
+          <p class='text-center text-lg text-slate-500 p-2'>
             I work as a mid-level developer and I'm in the 6th semester of my Computer Science degree. I started programming in high school, using FPGA and C.   I believe that programming is not tied to a specific language or framework, but rather to the mindset of how to create new solutions for everyday problems.
           </p>
         </li>
